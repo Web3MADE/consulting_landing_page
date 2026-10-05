@@ -5,6 +5,9 @@ html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--background); color: var(--foreground); font-family: Arial, Helvetica, sans-serif; }
 a { color: inherit; text-decoration: none; }
 .eyebrow { color: #688078; font-size: .73rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+main a[class*="bg-[#1d6048]"],
+main a[class*="bg-[#39765e]"],
+main button[class*="bg-[#1d6048]"] { color: #fff !important; }
 #offers article > a { margin-top: 2rem !important; padding-top: .75rem !important; }
 @media (min-width: 1024px) {
   #offers article > div:first-child { min-height: 8.5rem; }
