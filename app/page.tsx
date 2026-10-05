@@ -1,69 +1,84 @@
 import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { faArrowRight, faBars, faBriefcase, faCalendar, faChartColumn, faCheck, faCode, faCrown, faDatabase, faDollarSign, faEnvelope, faFileLines, faLink, faRobot, faShieldHalved, faUser, faWrench } from "@fortawesome/free-solid-svg-icons";
+import { faInstagram, faLinkedin, faWhatsapp, faYoutube } from "@fortawesome/free-brands-svg-icons";
+
+const BOOK_CALL_URL = "https://cal.com/hakeem-whitmore/30min";
+const WHATSAPP_URL = "https://wa.me/84388456820";
+const QUOTE_WHATSAPP_URL = `${WHATSAPP_URL}?text=${encodeURIComponent("Hi Hakeem, I’m interested in discussing a Technical Lead / Partner engagement. Here’s what we’re working on:")}`;
+
+function Icon({ icon, size = 20, className }: { icon: IconDefinition; size?: number; className?: string }) {
+  return <FontAwesomeIcon icon={icon} className={className} style={{ height: size, width: size }} />;
+}
+
+type IconProps = { size?: number; className?: string; strokeWidth?: number };
+const fontIcon = (icon: IconDefinition) => {
+  function FontAwesomeGlyph({ size, className }: IconProps) {
+    return <Icon icon={icon} size={size} className={className} />;
+  }
+
+  return FontAwesomeGlyph;
+};
+const ArrowRight = fontIcon(faArrowRight);
+const AtSign = fontIcon(faLinkedin);
+const Blocks = fontIcon(faBriefcase);
+const Bot = fontIcon(faRobot);
+const BriefcaseBusiness = fontIcon(faBriefcase);
+const CalendarDays = fontIcon(faCalendar);
+const Camera = fontIcon(faInstagram);
+const ChartNoAxesColumnIncreasing = fontIcon(faChartColumn);
+const Check = fontIcon(faCheck);
+const CircleDollarSign = fontIcon(faDollarSign);
+const Code2 = fontIcon(faCode);
+const Crown = fontIcon(faCrown);
+const Database = fontIcon(faDatabase);
+const FileText = fontIcon(faFileLines);
+const Link2 = fontIcon(faLink);
+const Mail = fontIcon(faEnvelope);
+const Menu = fontIcon(faBars);
+const MessageCircle = fontIcon(faWhatsapp);
+const Play = fontIcon(faYoutube);
+const ShieldCheck = fontIcon(faShieldHalved);
+const UserRound = fontIcon(faUser);
+const Wrench = fontIcon(faWrench);
+
+const services = [
+  ["Build a product", "Turn your idea into a scalable, production-ready product.", Blocks, "bg-[#edf8ee] text-[#26814f]"],
+  ["Fix technical problems", "Debug, unblock and get your project back on track.", Wrench, "bg-[#eef4ff] text-[#2563d9]"],
+  ["Improve existing software", "Make your systems faster, more reliable and easier to scale.", ChartNoAxesColumnIncreasing, "bg-[#eef8ef] text-[#14905b]"],
+  ["Fintech & payments", "Experience with financial systems, payments and regulated environments.", CircleDollarSign, "bg-[#edf9f1] text-[#15915c]"],
+  ["Web3 / blockchain", "Smart contracts, blockchain integrations and secure systems.", Link2, "bg-[#fff5ea] text-[#9a4d19]"],
+  ["AI integrations", "Integrate and ship practical AI solutions into your product.", Bot, "bg-[#f2efff] text-[#5145e5]"],
+] as const;
+const expertise = [["Stablecoin & payments infrastructure", "Real-world experience building financial systems.", Database], ["Production software & backend systems", "Scalable, reliable and maintainable solutions.", BriefcaseBusiness], ["Web3 & blockchain security experience", "Security-focused development across DeFi and on-chain systems.", ShieldCheck]] as const;
+const offers = [
+  { title: "Technical Advisor", price: "$1,000 / month", description: "Best for founders or teams needing senior technical guidance.", items: ["Weekly consultation calls", "Architecture & technical decisions", "Debugging difficult problems", "Direct messaging access"], icon: UserRound, cta: "Book consultation", featured: false },
+  { title: "Part-Time Senior Engineer", price: "$3,500 / month", description: "Best for teams needing hands-on development without another full-time hire.", items: ["Up to 20 hours / week", "Development & production support", "Architecture & code review", "Direct collaboration"], icon: Code2, cta: "Book consultation", featured: false },
+  { title: "Full-Time Senior Engineer", price: "$6,500 / month", description: "Best for companies needing serious ongoing engineering capacity.", items: ["Full-time engineering capacity", "Ownership of major features", "Production troubleshooting", "Technical planning"], icon: BriefcaseBusiness, cta: "Book consultation", featured: false },
+  { title: "Technical Lead / Partner", price: "From $10,000 / month", description: "Best for larger projects needing ownership, architecture and leadership.", items: ["Hands-on engineering", "Technical strategy", "Architecture & delivery", "Priority support"], icon: ChartNoAxesColumnIncreasing, cta: "Request a quote", featured: true },
+] as const;
+
+function Button({ children, href = BOOK_CALL_URL, outline = false }: { children: React.ReactNode; href?: string; outline?: boolean }) {
+  return <a href={href} target="_blank" rel="noreferrer" className={`inline-flex min-h-13 items-center justify-center gap-3 rounded-xl px-5 py-3 text-sm font-bold transition-transform hover:-translate-y-0.5 ${outline ? "border border-[#2d7058] bg-white text-[#15583f]" : "bg-[#1d6048] text-white shadow-[0_7px_18px_rgba(32,92,70,0.17)]"}`}>{children}</a>;
+}
 
 export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+  return <main className="overflow-hidden bg-[#fdfcf9] text-[#071425]">
+    <nav className="border-b border-[#e9e8e2] bg-white/90"><div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8"><a href="#top" className="text-xl font-extrabold tracking-[-0.06em]">Hakeem Whitmore</a><div className="hidden items-center gap-9 text-sm font-medium text-[#334151] md:flex"><a href="#about">About</a><a href="#work">Work</a><a href="#contact">Contact</a><a href={BOOK_CALL_URL} target="_blank" rel="noreferrer" className="rounded-lg bg-[#39765e] px-5 py-3 font-bold text-white">Free 30-Min Consultation</a></div><a aria-label="Open navigation" href="#contact" className="md:hidden"><Menu size={25} /></a></div></nav>
+
+    <section id="top" className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-10 sm:px-8 lg:grid-cols-[1.18fr_.82fr] lg:py-7"><div className="order-2 lg:order-1"><p className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#f0f5ef] px-3 py-1.5 text-xs font-medium text-[#244b3c]"><span className="h-2.5 w-2.5 rounded-full bg-[#22ae64]" />Senior Software Engineer &amp; Technical Consultant</p><h1 className="max-w-2xl text-[clamp(3rem,5.1vw,5.25rem)] font-extrabold leading-[.98] tracking-[-0.075em]">Got a technical<br className="hidden md:block" /> problem? <span className="text-[#286a50]">Let’s<br className="hidden md:block" /> figure it out.</span></h1><p className="mt-5 max-w-xl text-lg leading-[1.45] tracking-[-0.03em] text-[#324052]">I help founders and businesses build, fix and improve software across fintech, Web3, AI and full-stack products.</p><div className="mt-6 max-w-2xl rounded-2xl bg-[#f0f5ed] px-5 py-4 sm:flex sm:items-start sm:gap-4"><CalendarDays className="mb-3 shrink-0 text-[#217153] sm:mb-0" size={27} /><div><p className="font-bold text-[#126044]">Free 30-minute consultation</p><p className="mt-1 text-sm leading-5 text-[#405062]">Bring me what you’re building, what&apos;s broken, or where you&apos;re stuck. I&apos;ll give you my honest assessment and what I&apos;d do next.</p></div></div><div className="mt-5 grid max-w-xl gap-3 sm:grid-cols-2"><Button><CalendarDays size={20} />Book a Free Consultation <ArrowRight size={18} /></Button><Button href={WHATSAPP_URL} outline><MessageCircle size={21} className="text-[#16a363]" />Message me on WhatsApp</Button></div></div><div className="relative order-1 min-h-80 overflow-hidden rounded-[1.35rem] bg-[#d9e3d9] lg:order-2 lg:min-h-[490px]"><Image src="/photos/me_coaching_smiling.png" alt="Hakeem Whitmore smiling during a coaching session" fill priority sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover object-[center_42%]" /></div></section>
+
+    <section className="border-y border-[#eeece6] bg-white/60"><div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-6 gap-y-4 px-5 py-7 sm:px-8"><span className="inline-flex items-center gap-2 text-sm text-[#5b6675]"><Code2 size={20} />5+ years engineering</span><i className="hidden h-7 w-px bg-[#d7d9d6] sm:block" /><a href="https://audits.sherlock.xyz/watson/web3made" target="_blank" rel="noreferrer" aria-label="View Hakeem Whitmore's XRPL work on Sherlock" className="flex h-12 w-28 items-center justify-center overflow-hidden transition-opacity hover:opacity-75"><Image src="/logos/ripple_logo.webp" alt="XRPL" width={600} height={600} className="h-11 w-11 scale-125 object-contain" /></a><i className="hidden h-7 w-px bg-[#d7d9d6] sm:block" /><a href="https://www.zand.ae/en" target="_blank" rel="noreferrer" aria-label="Visit Zand Bank" className="flex h-12 w-28 items-center justify-center overflow-hidden transition-opacity hover:opacity-75"><Image src="/logos/zand-bank-logo.webp" alt="Zand Bank" width={670} height={326} className="max-h-11 w-auto max-w-28 object-contain" /></a><i className="hidden h-7 w-px bg-[#d7d9d6] sm:block" /><a href="https://www.ebay.com/" target="_blank" rel="noreferrer" aria-label="Visit eBay" className="flex h-12 w-28 items-center justify-center overflow-hidden transition-opacity hover:opacity-75"><Image src="/logos/ebay_logo.webp" alt="eBay" width={350} height={350} className="h-11 w-11 scale-[2.5] object-contain" /></a><i className="hidden h-7 w-px bg-[#d7d9d6] sm:block" /><a href="https://www.ricoh.co.uk/services/ricoh-spaces/" target="_blank" rel="noreferrer" aria-label="Visit Ricoh Spaces" className="flex h-12 w-28 items-center justify-center overflow-hidden transition-opacity hover:opacity-75"><Image src="/logos/ricoh_logo.svg" alt="Ricoh" width={141} height={62} className="max-h-10 w-auto max-w-28 object-contain" /></a></div></section>
+
+    <section id="work" className="mx-auto max-w-7xl px-5 py-16 sm:px-8"><p className="eyebrow">How I can help</p><h2 className="mt-3 max-w-5xl text-4xl font-extrabold leading-none tracking-[-0.065em] sm:text-5xl">Practical support for real technical challenges.</h2><div className="mt-7 grid gap-3 md:grid-cols-2 lg:grid-cols-3">{services.map(([title, text, Icon, tone]) => <article key={title} className="flex min-h-35 gap-5 rounded-2xl border border-[#e7e8e4] bg-white p-4 shadow-[0_4px_15px_rgba(22,39,33,.025)]"><div className={`flex h-13 w-13 shrink-0 items-center justify-center rounded-xl ${tone}`}><Icon size={27} strokeWidth={2.1} /></div><div><h3 className="font-bold tracking-[-.035em]">{title}</h3><p className="mt-2 text-sm leading-5 text-[#596678]">{text}</p></div></article>)}</div></section>
+
+    <section id="about" className="mx-auto grid max-w-7xl gap-9 px-5 pb-12 sm:px-8 lg:grid-cols-[.68fr_1.32fr] lg:items-center"><div className="relative min-h-80 overflow-hidden rounded-[1.35rem] bg-[#d6d4be]"><Image src="/photos/me_consulting_workshop.jpeg" alt="Hakeem Whitmore consulting with a workshop participant" fill sizes="(min-width: 1024px) 30vw, 100vw" className="object-cover object-[63%_center]" /></div><div><p className="eyebrow">About me</p><h2 className="mt-3 max-w-3xl text-4xl font-extrabold leading-[1.03] tracking-[-.06em] sm:text-5xl">A hands-on consultant who understands both product and engineering.</h2><p className="mt-5 max-w-3xl text-lg leading-[1.45] tracking-[-.025em] text-[#455264]">Senior engineer with experience at Zand Bank and eBay, working across fintech, payments, Web3 and production software. I work directly with founders and teams — from quick technical advice through to hands-on development and technical leadership.</p><div className="mt-7 grid gap-5 sm:grid-cols-3">{expertise.map(([title, text, Icon]) => <div key={title} className="flex gap-3"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#edf5ed] text-[#176b4c]"><Icon size={21} /></span><div><h3 className="text-sm font-bold leading-4">{title}</h3><p className="mt-2 text-xs leading-4 text-[#627080]">{text}</p></div></div>)}</div></div></section>
+
+    <section id="offers" className="mx-auto max-w-7xl px-5 py-16 sm:px-8"><div className="mx-auto max-w-5xl text-center"><p className="eyebrow">Ways to work with me</p><h2 className="mt-3 text-4xl font-extrabold leading-none tracking-[-.065em] sm:text-5xl">Simple, clear ways to <span className="text-[#286a50]">work together.</span></h2><p className="mt-4 text-lg leading-7 text-[#586578]">Choose the level of support that fits your situation — or book a free consultation and I&apos;ll recommend the right fit.</p></div><div className="mt-8 grid gap-5 lg:grid-cols-2">{offers.map(({ title, price, description, items, icon: Icon, cta, featured }) => <article key={title} className={`relative flex min-h-[350px] flex-col rounded-[1.35rem] border p-6 shadow-[0_5px_16px_rgba(22,39,33,.03)] sm:p-7 ${featured ? "border-[#52ad7a] bg-[#f5faf4] shadow-[0_8px_24px_rgba(36,101,71,.08)]" : "border-[#e7e8e4] bg-white"}`}><div className="flex gap-5"><span className="flex h-15 w-15 shrink-0 items-center justify-center rounded-2xl bg-[#edf7ee] text-[#176b4c]"><Icon size={31} strokeWidth={2.05} /></span><div className="min-w-0"><h3 className="text-2xl font-extrabold leading-tight tracking-[-.05em]">{title}</h3><p className="mt-1 text-xl font-bold tracking-[-.04em] text-[#146446]">{price}</p><p className="mt-2 max-w-md text-[#586578]">{description}</p></div></div>{featured && <span className="absolute right-5 top-5 inline-flex items-center gap-1.5 rounded-full bg-[#e6f4e9] px-3 py-1.5 text-xs font-bold text-[#176447]"><Crown size={14} />Custom engagement</span>}<ul className="mt-6 space-y-2.5 text-[#526074]">{items.map(item => <li key={item} className="flex items-center gap-3"><span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#e8f6eb] text-[#17704e]"><Check size={15} strokeWidth={3} /></span>{item}</li>)}</ul><a href={featured ? QUOTE_WHATSAPP_URL : BOOK_CALL_URL} target="_blank" rel="noreferrer" className="mt-auto pt-8 inline-flex min-h-13 items-center justify-center gap-3 rounded-xl bg-[#1d6048] px-5 py-3 text-sm font-bold text-white shadow-[0_7px_18px_rgba(32,92,70,0.17)] transition-transform hover:-translate-y-0.5">{featured ? <FileText size={20} /> : <CalendarDays size={20} />}{cta}<ArrowRight size={18} /></a></article>)}</div></section>
+
+    <section id="contact" className="mx-auto max-w-7xl px-5 pb-16 pt-6 sm:px-8"><div className="grid overflow-hidden rounded-[1.5rem] bg-[linear-gradient(120deg,#edf5ea,#f9fbf7)] p-6 sm:p-10 lg:grid-cols-[1.12fr_.88fr] lg:items-center lg:gap-14 lg:p-14"><div className="max-w-xl"><div className="mb-7 flex h-18 w-18 items-center justify-center rounded-2xl bg-[#e4f3e6] text-[#176447]"><Mail size={37} strokeWidth={2} /></div><p className="eyebrow">Email me</p><h2 className="mt-4 text-5xl font-extrabold leading-[.92] tracking-[-.075em] sm:text-6xl">Prefer email<br /><span className="text-[#286a50]">instead?</span></h2><p className="mt-7 max-w-xl text-xl leading-[1.45] tracking-[-.025em] text-[#526075]">If you don&apos;t use WhatsApp, send me a message here and I&apos;ll get back to you as soon as I can.</p></div><form action="mailto:web3made@pm.me" method="post" encType="text/plain" className="mt-9 rounded-[1.35rem] border border-[#dfe5e0] bg-white p-6 shadow-[0_8px_22px_rgba(24,58,42,.04)] lg:mt-0 sm:p-8"><label htmlFor="name" className="text-lg font-bold tracking-[-.035em]">Name</label><input id="name" name="name" required placeholder="Your name" className="mt-2 w-full rounded-xl border border-[#d9dee5] px-4 py-3.5 text-lg text-[#071425] outline-none transition focus:border-[#39765e] focus:ring-2 focus:ring-[#dcefe1]" /><label htmlFor="email" className="mt-5 block text-lg font-bold tracking-[-.035em]">Email</label><input id="email" name="email" type="email" required placeholder="your@email.com" className="mt-2 w-full rounded-xl border border-[#d9dee5] px-4 py-3.5 text-lg text-[#071425] outline-none transition focus:border-[#39765e] focus:ring-2 focus:ring-[#dcefe1]" /><label htmlFor="message" className="mt-5 block text-lg font-bold tracking-[-.035em]">Message</label><textarea id="message" name="message" required placeholder="Tell me a bit about what you’re working on..." rows={4} className="mt-2 w-full resize-y rounded-xl border border-[#d9dee5] px-4 py-3.5 text-lg text-[#071425] outline-none transition focus:border-[#39765e] focus:ring-2 focus:ring-[#dcefe1]" /><button type="submit" className="mt-5 inline-flex min-h-13 w-full items-center justify-center gap-3 rounded-xl bg-[#1d6048] px-5 py-3 text-sm font-bold text-white shadow-[0_7px_18px_rgba(32,92,70,0.17)] transition-transform hover:-translate-y-0.5"><Mail size={21} />Send message <ArrowRight size={18} /></button><p className="mt-6 text-center text-sm text-[#637082]">Or email me directly: <a href="mailto:web3made@pm.me" className="font-bold text-[#176447]">web3made@pm.me</a></p></form></div></section>
+
+    <footer className="border-t border-[#e9e8e2] px-5 py-7 text-[#77818c] sm:px-8"><div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 text-xs sm:flex-row"><span>© 2026 Hakeem Whitmore. Technical consulting for ambitious teams.</span><div className="flex items-center gap-4"><a href="https://www.linkedin.com/in/hakeem-whitmore/" target="_blank" rel="noreferrer" aria-label="Hakeem Whitmore on LinkedIn" className="transition-colors hover:text-[#176447]"><AtSign size={19} /></a><a href="https://www.instagram.com/web3made/" target="_blank" rel="noreferrer" aria-label="Web3made on Instagram" className="transition-colors hover:text-[#176447]"><Camera size={19} /></a><a href="https://www.youtube.com/@web3made" target="_blank" rel="noreferrer" aria-label="Web3made on YouTube" className="transition-colors hover:text-[#176447]"><Play size={20} /></a></div></div></footer>
+  </main>;
 }
